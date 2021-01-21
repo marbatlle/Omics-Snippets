@@ -14,6 +14,10 @@
 **Library protocol:** Agilent SureSelect V5 Human All Exons.
 
 ## 1. Quality Control
+Performed by **FASTQ software**
+* Input: FastQ files
++ Output report: html with plots
+Manual: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/
 
 ## 2. Alignment
 
