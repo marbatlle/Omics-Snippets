@@ -12,6 +12,14 @@ Our inital bundle of files includes:
 
 **Library protocol:** Agilent SureSelect V5 Human All Exons.
 
-## 1. The data
+## 1. Quality Control
+
+## 2. Alignment
+
+## 3. Refinement of Alignment
+
+## 4. Variant Calling
+
+## 5. Visualitzation
 
 
