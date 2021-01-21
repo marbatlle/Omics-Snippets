@@ -1,6 +1,6 @@
-Human_genome/*
-!Human_genome/.gitkeep
-Intervals/*
-!Intervals/.gitkeep
-Raw_data/*
-!Raw_data/.gitkeep
+human_genome/*
+!human_genome/.gitkeep
+intervals/*
+!intervals/.gitkeep
+raw_data/*
+!raw_data/.gitkeep
