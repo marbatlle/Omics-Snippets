@@ -67,4 +67,15 @@ do
     fi
 done
 
+echo "* INITIATING Intersection of Variants *"
+mkdir -p out/calling/intersection
+if [ ! -f out/calling/intersection/README.txt ]
+then
+    bcftools isec out/calling/Tumour_rawcalls.vcf.gz out/calling/Normal_rawcalls.vcf.gz -p out/calling/intersection
+    cat out/calling/intersection/README.txt
+    echo "* Variant Intersection Analysis for $fname FINALIZED *"
+else
+    echo "* PROCESS EXITED. Variant Intersection Analysis OUTPUT ALREADY EXISTS *"
+fi
+
 echo "*** PIPELINE FINALIZED ***"
