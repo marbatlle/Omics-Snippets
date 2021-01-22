@@ -37,8 +37,8 @@ Script: $ bwa mem -R '@RG\tID:OVCA\tSM:sample' \
 
 ## 3. Refinement of Alignment
 Performed by **Samtools software**
-* Input: Reference genome and fastq sample files
-* Output: Alignment sam file
+* Input: Alignment sam file
+* Output: Alignment refinement bam file
 Script: 
     $ ./samtools fixmate -O bam [path to Alignment]/sample.sam [path to Alignment]/sample_fixmate.bam
     $ samtools sort -O bam -o [path to Alignment]/sample_sorted.bam [path to Alignment]/sample_fixmate.bam
@@ -47,6 +47,12 @@ Script:
 
 
 ## 4. Variant Calling
+Performed by **BCFtools software**
+* Input: Alignment refinement bam file
+* Output: 
+Script: 
+    $ bcftools mpileup -Ou -f [path to Human_genome]/hg19_chr17.fa [path to Alignment]/sample_refined.bam | bcftools call -vmO z -o [path to Calling]/sample_rawcalls.vcf.gz
+    $ bcftools index [path to Calling]/sample_rawcalls.vcf.gz
 
 ## 5. Visualitzation
 

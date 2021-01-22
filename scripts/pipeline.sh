@@ -32,7 +32,7 @@ do
     if [ ! -f out/alignment/${fname}.sam ]
     then 
         bwa mem -R '@RG\tID:OVCA\tSM:${fname}' human_genome/hg19_chr17.fa raw_data/WEx_${fname}_R1.fastq raw_data/WEx_${fname}_R2.fastq > out/alignment/${fname}.sam
-        echo "* Alignment FINALIZED *"
+        echo "* Alignment of $fname FINALIZED *"
     else 
         echo "* PROCESS EXITED. Alignment of $fname OUTPUT ALREADY EXISTS *"
     fi
@@ -47,9 +47,23 @@ do
         samtools sort -O bam -o out/alignment/${fname}_sorted.bam out/alignment/${fname}_fixmate.bam
         samtools rmdup -S out/alignment/${fname}_sorted.bam out/alignment/${fname}_refined.bam
         samtools index out/alignment/${fname}_refined.bam
-        echo "* Alignment Refinement FINALIZED *"
+        echo "* Alignment Refinement for $fname FINALIZED *"
     else
         echo "* PROCESS EXITED. Alignment refinement of $fname OUTPUT ALREADY EXISTS *"
+    fi
+done
+
+echo "* INITIATING Variant Calling *"
+mkdir -p out/calling
+for fname in $(ls raw_data/*_R1.fastq | cut -d"." -f1 | sed "s:raw_data/::" | cut -d"_" -f2)
+do 
+    if [ ! -f out/calling/${fname}_rawcalls.vcf.gz ]
+    then
+        bcftools mpileup -Ou -f human_genome/hg19_chr17.fa out/alignment/${fname}_refined.bam | bcftools call -vmO z -o out/calling/${fname}_rawcalls.vcf.gz
+        bcftools index out/calling/${fname}_rawcalls.vcf.gz
+        echo "* Variant Calling for $fname FINALIZED *"
+    else
+        echo "* PROCESS EXITED. Variant calling for $fname OUTPUT ALREADY EXISTS *"
     fi
 done
 
