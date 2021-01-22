@@ -63,5 +63,5 @@ Script:
     $ cat [path to Calling]/Intersection/README.txt
 
 ## 5. Visualitzation
-
+Performed by **IGV: Genome Browser software**
 
