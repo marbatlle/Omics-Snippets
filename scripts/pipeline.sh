@@ -13,7 +13,7 @@ do
     fi
 done
 
-echo "* INITIATING Referece Genome Indexing *"
+echo "* INITIATING Reference Genome Indexing *"
 for refgen in $(ls human_genome/*.fa | cut -d"." -f1 | sed "s:human_genome/::")
 do 
     if [ ! -f human_genome/${refgen}.fa.bwt ]
@@ -27,17 +27,29 @@ done
 
 echo "* INITIATING Alignment *"
 mkdir -p out/alignment
-for fname in $(ls raw_data/*_R1.fastq | cut -d"." -f1 | sed "s:raw_data/::" | cut -d"_" -f2 )
+for fname in $(ls raw_data/*_R1.fastq | cut -d"." -f1 | sed "s:raw_data/::" | cut -d"_" -f2)
 do 
     if [ ! -f out/alignment/${fname}.sam ]
     then 
-        bwa mem -R '@RG\tID:OVCA\tSM:${fname}' \
-        human_genome/hg19_chr17.fa \
-        raw_data/${fname}_R1.fastq \
-        raw_data/${fname}_R2.fastq > out/alignment/${fname}.sam
+        bwa mem -R '@RG\tID:OVCA\tSM:${fname}' human_genome/hg19_chr17.fa raw_data/WEx_${fname}_R1.fastq raw_data/WEx_${fname}_R2.fastq > out/alignment/${fname}.sam
         echo "* Alignment FINALIZED *"
     else 
         echo "* PROCESS EXITED. Alignment of $fname OUTPUT ALREADY EXISTS *"
+    fi
+done
+
+echo "* INITIATING Alignment Refinement *"
+for fname in $(ls raw_data/*_R1.fastq | cut -d"." -f1 | sed "s:raw_data/::" | cut -d"_" -f2)
+do 
+    if [ ! -f out/alignment/${fname}_refined.bam ]
+    then
+        samtools fixmate -O bam out/alignment/${fname}.sam out/alignment/${fname}_fixmate.bam
+        samtools sort -O bam -o out/alignment/${fname}_sorted.bam out/alignment/${fname}_fixmate.bam
+        samtools rmdup -S out/alignment/${fname}_sorted.bam out/alignment/${fname}_refined.bam
+        samtools index out/alignment/${fname}_refined.bam
+        echo "* Alignment Refinement FINALIZED *"
+    else
+        echo "* PROCESS EXITED. Alignment refinement of $fname OUTPUT ALREADY EXISTS *"
     fi
 done
 

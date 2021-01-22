@@ -1,4 +1,4 @@
-# Overview of the case study: Exome Analysis (OVCA)
+# Overview of the case study: SNVs Analysis
 
 **Goal:** Create a pipeline for the variant analysis of Whole-Exome Sequencing data.
 
@@ -26,7 +26,6 @@ Performed by **Bowtie software**
 * Input: Reference genome Fasta FastQ file
 * Output report: Different files are generated during the indexing with the same prefix as the fasta file (hg19_chr17.fa*)
 Script: $ bwa index [path to Human_genome]/hg19_chr17.fa
-
 ### 2.2. Alignment
 Performed by **Bowtie software**
 * Input: Reference genome and fastq sample files
@@ -36,11 +35,16 @@ Script: $ bwa mem -R '@RG\tID:OVCA\tSM:sample' \
 [path to Raw_data]/WEx_sample_R1.fastq \
 [path to Raw_data]/WEx_sample_R2.fastq > [path to Alignment]/sample.sam
 
-
-
-
-
 ## 3. Refinement of Alignment
+Performed by **Samtools software**
+* Input: Reference genome and fastq sample files
+* Output: Alignment sam file
+Script: 
+    $ ./samtools fixmate -O bam [path to Alignment]/sample.sam [path to Alignment]/sample_fixmate.bam
+    $ samtools sort -O bam -o [path to Alignment]/sample_sorted.bam [path to Alignment]/sample_fixmate.bam
+    $ samtools rmdup -S [path to Alignment]/sample_sorted.bam [path to Alignment]/sample_refined.bam
+    $ samtools index [path to Alignment]/sample_refined.bam
+
 
 ## 4. Variant Calling
 
