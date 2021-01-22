@@ -31,7 +31,7 @@ Script: $ bwa index [path to Human_genome]/hg19_chr17.fa
 Performed by **Bowtie software**
 * Input: Reference genome and fastq sample files
 * Output: Alignment sam file
-Script: $ ./bwa mem -R '@RG\tID:OVCA\tSM:sample' \
+Script: $ bwa mem -R '@RG\tID:OVCA\tSM:sample' \
 [path to Human_genome]/hg19_chr17.fa \
 [path to Raw_data]/WEx_sample_R1.fastq \
 [path to Raw_data]/WEx_sample_R2.fastq > [path to Alignment]/sample.sam

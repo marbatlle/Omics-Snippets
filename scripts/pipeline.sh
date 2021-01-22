@@ -13,7 +13,7 @@ do
     fi
 done
 
-echo "* INITIATING Referemce Genome Indexing *"
+echo "* INITIATING Referece Genome Indexing *"
 for refgen in $(ls human_genome/*.fa | cut -d"." -f1 | sed "s:human_genome/::")
 do 
     if [ ! -f human_genome/${refgen}.fa.bwt ]
@@ -25,6 +25,14 @@ do
     fi
 done
 
-
+echo "* INITIATING Alignment *"
+for fname in $(ls raw_data/*_R1.fastq | cut -d"." -f1 | sed "s:raw_data/::" | cut -d"_" -f2 )
+do 
+mkdir -p out/alignment 
+bwa mem -R '@RG\tID:OVCA\tSM:${fname}' \
+human_genome/hg19_chr17.fa \
+raw_data/${fname}_R1.fastq \
+raw_data/${fname}_R2.fastq > out/alignment/${fname}.sam
+done
 
 echo "*** PIPELINE FINALIZED ***"
