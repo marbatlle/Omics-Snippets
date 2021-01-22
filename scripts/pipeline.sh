@@ -26,13 +26,19 @@ do
 done
 
 echo "* INITIATING Alignment *"
+mkdir -p out/alignment
 for fname in $(ls raw_data/*_R1.fastq | cut -d"." -f1 | sed "s:raw_data/::" | cut -d"_" -f2 )
 do 
-mkdir -p out/alignment 
-bwa mem -R '@RG\tID:OVCA\tSM:${fname}' \
-human_genome/hg19_chr17.fa \
-raw_data/${fname}_R1.fastq \
-raw_data/${fname}_R2.fastq > out/alignment/${fname}.sam
+    if [ ! -f out/alignment/${fname}.sam ]
+    then 
+        bwa mem -R '@RG\tID:OVCA\tSM:${fname}' \
+        human_genome/hg19_chr17.fa \
+        raw_data/${fname}_R1.fastq \
+        raw_data/${fname}_R2.fastq > out/alignment/${fname}.sam
+        echo "* Alignment FINALIZED *"
+    else 
+        echo "* PROCESS EXITED. Alignment of $fname OUTPUT ALREADY EXISTS *"
+    fi
 done
 
 echo "*** PIPELINE FINALIZED ***"

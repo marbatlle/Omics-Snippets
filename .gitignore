@@ -4,3 +4,5 @@ intervals/*
 !intervals/.gitkeep
 raw_data/*
 !raw_data/.gitkeep
+out/*
+!out/.gitkeep
