@@ -13,4 +13,18 @@ do
     fi
 done
 
+echo "* INITIATING Referemce Genome Indexing *"
+for refgen in $(ls human_genome/*.fa | cut -d"." -f1 | sed "s:human_genome/::")
+do 
+    if [ ! -f human_genome/${refgen}.fa.bwt ]
+    then
+        bwa index human_genome/${refgen}.fa
+        echo "* Reference Genome Indexing FINALIZED *"
+    else
+        echo "* PROCESS EXITED. Reference genome $refgen Indexing OUTPUT ALREADY EXISTS *"
+    fi
+done
+
+
+
 echo "*** PIPELINE FINALIZED ***"

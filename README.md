@@ -16,10 +16,16 @@
 ## 1. Quality Control
 Performed by **FASTQ software**
 * Input: FastQ files
-+ Output report: html with plots
+* Output report: html with plots
+Script: $ fastqc {fastq path} --outdir=out/fastqc
 Manual: http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/
 
 ## 2. Alignment
+### 2.1. Indexing of Reference Genome
+Performed by **Bowtie software**
+* Input: Reference genome Fasta FastQ file
+* Output report: Different files are generated during the indexing with the same prefix as the fasta file (hg19_chr17.fa*)
+Script: $ bwa index [path to Human_genome]/hg19_chr17.fa
 
 ## 3. Refinement of Alignment
 
