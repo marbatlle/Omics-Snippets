@@ -64,4 +64,5 @@ Script:
 
 ## 5. Visualitzation
 Performed by **IGV: Genome Browser software**
+* Input: BAM files from each sample and BED file (the intervals)
 
