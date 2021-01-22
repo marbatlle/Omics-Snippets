@@ -27,6 +27,19 @@ Performed by **Bowtie software**
 * Output report: Different files are generated during the indexing with the same prefix as the fasta file (hg19_chr17.fa*)
 Script: $ bwa index [path to Human_genome]/hg19_chr17.fa
 
+### 2.2. Alignment
+Performed by **Bowtie software**
+* Input: Reference genome and fastq sample files
+* Output: Alignment sam file
+Script: $ ./bwa mem -R '@RG\tID:OVCA\tSM:sample' \
+[path to Human_genome]/hg19_chr17.fa \
+[path to Raw_data]/WEx_sample_R1.fastq \
+[path to Raw_data]/WEx_sample_R2.fastq > [path to Alignment]/sample.sam
+
+
+
+
+
 ## 3. Refinement of Alignment
 
 ## 4. Variant Calling
