@@ -1,8 +1,10 @@
 human_genome/*
 !human_genome/.gitkeep
+!human_genome/*.tar.xz
 intervals/*
 !intervals/.gitkeep
 raw_data/*
+!raw_data/*.tar.xz
 !raw_data/.gitkeep
 out/*
 !out/.gitkeep
