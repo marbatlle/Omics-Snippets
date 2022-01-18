@@ -38,6 +38,7 @@ process gatherFasta {
 }
 
 process runMuscle {
+	conda 'msa_env.yml'
 	input:
 	file z from gather_ch
 	output:
